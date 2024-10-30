@@ -1,5 +1,9 @@
 /*
-
+    . Testing the ground with the ftxui library.
+        . This is a simple example that creates a GUI with three buttons and a progress bar.
+        . The buttons increment the progress bar by different amounts when clicked.
+        . ftxui is a C++ library for creating terminal user interfaces with a functional and declarative API.
+        . This example code works both on Windows and Linux (GCC, Clang).
     . NOTE: 
         . This example won't work in containers because they don't have a xserver
             set up. It's possible to set up one but we'll pass for this course.
