@@ -12,6 +12,9 @@ set(CMAKE_CXX_SCAN_FOR_MODULES ON)
 find_package(fmt CONFIG REQUIRED)
 find_package(SFML COMPONENTS system window graphics CONFIG REQUIRED)
 
+# this is heuristically generated, and may not be correct
+find_package(ftxui CONFIG REQUIRED)
+
 
 add_executable(Rocket main.cpp)
 target_sources(Rocket
@@ -21,3 +24,4 @@ target_sources(Rocket
 )
 
 target_link_libraries(Rocket PRIVATE fmt::fmt sfml-graphics)
+target_link_libraries(Rocket PRIVATE ftxui::dom ftxui::screen ftxui::component)
