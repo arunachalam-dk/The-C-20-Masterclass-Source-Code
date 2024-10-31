@@ -43,9 +43,9 @@ namespace it_1{
         int progress = 0;
 
             // Define three buttons
-            auto button1 = ftxui::Button("Button 1", [&]() { progress += 10; });
-            auto button2 = ftxui::Button("Button 2", [&]() { progress += 20; });
-            auto button3 = ftxui::Button("Button 3", [&]() { progress = 0; }); // Reset progress
+            auto button1 = ftxui::Button("Add 10", [&]() { progress += 10; });
+            auto button2 = ftxui::Button("Add 20", [&]() { progress += 20; });
+            auto button3 = ftxui::Button("Reset", [&]() { progress = 0; }); // Reset progress
 
             // Create a horizontal layout for the buttons
             auto buttons_layout = ftxui::Container::Horizontal({
@@ -70,6 +70,6 @@ namespace it_1{
 
             // Create an interactive screen
             auto screen = ftxui::ScreenInteractive::FitComponent();
-            screen.Loop(renderer);
+            screen.Loop(renderer); // This triggers the event loop.
     }
 }
