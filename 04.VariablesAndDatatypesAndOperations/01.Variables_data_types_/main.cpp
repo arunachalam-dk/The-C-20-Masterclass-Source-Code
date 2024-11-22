@@ -34,7 +34,7 @@
 
 // One line comment
 import utilities;
-//#include <fmt/format.h>
+#include <fmt/format.h>
 
 int main() {
       // Integers and number systems
@@ -55,17 +55,31 @@ int main() {
 
      // Floating point types
      // floats offer 7 digits of precision while double offers 15 digits of precision.
+     // long double offers 18 digits of precision
      // The range of float is 1.17549e-38 to 3.40282e+38 
      //The range of double is 2.22507e-308 to 1.79769e+308
      //The range of long double is 3.3621e-4932 to 1.18973e+4932
-     // Using https://ciechanow.ski/exposing-floating-point/ as a reference
 
-     float num1 = -343.53125f;
-     double num2 = -343.53125;
-     long double num3 = -343.53125l;
+    // Single precision (float)
+    float single_precision = 1.123456789123456789f;
+
+    // Double precision (double)
+    double double_precision = 1.123456789123456789;
+
+    // Extended precision (long double)
+    long double long_double_precision = 1.123456789123456789123456789L;
+
+    // Print results with 30 decimal places for comparison
+    fmt::print("Float (single precision): {:.30f}\n", single_precision);
+    fmt::print("Double (double precision): {:.30f}\n", double_precision);
+    fmt::print("Long Double (extended precision): {:.30Lf}\n", long_double_precision);
+
+    fmt::print("Size of float: {} bytes\n", sizeof(float));
+    fmt::print("Size of double: {} bytes\n", sizeof(double));
+    fmt::print("Size of long double: {} bytes\n", sizeof(long double));
 
      
-     represent_float(num1);
+     //represent_float(num1);
 
      //Type ranges for ints and floats
      //print_type_ranges();
