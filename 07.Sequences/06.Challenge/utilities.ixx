@@ -31,7 +31,7 @@ namespace it_1{
 
     // Create multiple shapes and store them in a vector
     std::vector<sf::CircleShape> shapes;
-    for(int i = 0; i < 5; ++i) {
+    for(int i = 0; i < 15; ++i) {
       sf::CircleShape shape(circleRadius + i * 10); // Vary radius slightly for each shape
       shape.setFillColor(shapeColor);
       shape.setPosition(i * 50.f, 50.f); // Set position of each shape
@@ -263,15 +263,13 @@ namespace it_3{
 
 
 /*
-  4. Animate Multiple Shapes with Timers
-    . Task: Create multiple shapes (using std::vector or std::array) and move them horizontally across the window at different speeds. Each shape should have its own timer (tracked in a container) to determine when it moves.
-    . Hint: Use std::vector<sf::Clock> to store separate timers for each shape and adjust their positions based on elapsed time.
-    . Objective: Practice with multiple timers and iterating through containers to update positions.
+  4. Animate Multiple Shapes with Timers and make them bounce when they hit the edges of the window
+    . Fill in the details later
 */
 
 namespace it_4
 {
-  export void app(){
+  export void app() {
     // Store the data in predefined variables
     constexpr int width = 600;
     constexpr int height = 600;  
@@ -285,23 +283,28 @@ namespace it_4
     // Vector to store multiple circles
     std::vector<sf::CircleShape> shapes;
 
+    // Vector to store the movement direction for each shape
+    std::vector<sf::Vector2f> directions;
+
     // Initialize the circles with different positions and colors
     for (int i = 0; i < 5; ++i) {
       sf::CircleShape shape(circleRadius);
       shape.setPosition(100.f * (i + 1), 100.f);
       shape.setFillColor(sf::Color(50 * i, 100 + (30 * i), 200 - (40 * i))); // Unique color for each shape
       shapes.push_back(shape);
+
+      // Initial direction for each shape (moving diagonally)
+      directions.emplace_back(20.f, 20.f);
     }
 
     // Timer setup
     sf::Clock clock;
-    constexpr float moveInterval = 1.0f; // Move shapes every second
-    constexpr float moveDistance = 20.f; // How far shapes move
+    constexpr float moveInterval = 0.05f; // Move shapes every 50 milliseconds
 
     while (window.isOpen()) {
       sf::Event event;
       while (window.pollEvent(event)) {
-        if (event.type == sf::Event::Closed){
+        if (event.type == sf::Event::Closed) {
           window.close();
         }
 
@@ -312,9 +315,25 @@ namespace it_4
 
       // Timer-based movement
       if (clock.getElapsedTime().asSeconds() > moveInterval) {
-        for (auto& shape : shapes) {
-          shape.move(0.f, moveDistance); // Move down by `moveDistance`
+        for (size_t i = 0; i < shapes.size(); ++i) {
+          auto& shape = shapes[i];
+          auto& direction = directions[i];
+
+          // Get the current position of the shape
+          sf::Vector2f position = shape.getPosition();
+
+          // Check for collisions with window edges and reverse direction
+          if (position.x <= 0.f || position.x + circleRadius * 2 >= width) {
+            direction.x = -direction.x; // Reverse horizontal direction
+          }
+          if (position.y <= 0.f || position.y + circleRadius * 2 >= height) {
+            direction.y = -direction.y; // Reverse vertical direction
+          }
+
+          // Move the shape in the current direction
+          shape.move(direction);
         }
+
         clock.restart(); // Restart the timer
       }
 
@@ -327,7 +346,6 @@ namespace it_4
     }
   }  
 } // namespace it_4
-
 
 /*
   5. Resize Shape Array Based on Mouse Clicks

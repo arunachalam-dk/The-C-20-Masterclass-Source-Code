@@ -17,7 +17,7 @@ export void do_work(){
   	fmt::println("data (dec) : {0:d}", data);
   	fmt::println("data (oct) : {0:o}", data);
   	fmt::println("data (hex) : {0:x}", data);
-  	fmt::println("data (bin) : {:016b}", std::bitset<16>(data).to_ulong());
+  	fmt::println("data (bin) : {:016b}", data);
 
   	// Shift operators
   	unsigned short int value {0xff0u};
