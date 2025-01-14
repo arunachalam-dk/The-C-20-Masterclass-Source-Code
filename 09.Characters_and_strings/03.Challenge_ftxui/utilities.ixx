@@ -1,7 +1,6 @@
 /*
     . Palindrome checker
-        . Raw
-        . Using the ftxui library
+        . Combined with the ftxui library
 */
 module;
 #include <iostream>
