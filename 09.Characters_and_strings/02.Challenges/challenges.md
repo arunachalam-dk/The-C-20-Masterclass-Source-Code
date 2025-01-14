@@ -34,6 +34,66 @@ Write a program that does the following:
     * Reverse each word in the sentence but keep the order of the words.
     * Use std::string to manipulate the text.
     * The program should repeatedly ask the user if they want to continue and give them the option to enter another sentence, until they choose to stop.
+    * Program flow visualized: 
+      * +--------------------------------------------------+
+        | Initial sentence: "The sky is blue"              |
+        +--------------------------------------------------+
+                        |
+                        v
+        +----------------------------------+------------------+
+        | Iterating through sentence...   | "The sky is blue"|
+        | Start from index 0               |                  |
+        +----------------------------------+------------------+
+                        |
+                        v
+        +----------------------------------+------------------+
+        | Find first space at index 3     | "The" (word)     |
+        | Reverse "The" -> "ehT"          |                  |
+        +----------------------------------+------------------+
+                        |
+                        v
+        +----------------------------------+------------------+
+        | Reversed sentence: "ehT"        | "sky is blue"    |
+        +----------------------------------+------------------+
+                        |
+                        v
+        +----------------------------------+------------------+
+        | Find next space at index 7      | "sky" (word)     |
+        | Reverse "sky" -> "yks"          |                  |
+        +----------------------------------+------------------+
+                        |
+                        v
+        +----------------------------------+------------------+
+        | Reversed sentence: "ehT yks"    | "is blue"        |
+        +----------------------------------+------------------+
+                        |
+                        v
+        +----------------------------------+------------------+
+        | Find next space at index 10     | "is" (word)      |
+        | Reverse "is" -> "si"            |                  |
+        +----------------------------------+------------------+
+                        |
+                        v
+        +----------------------------------+------------------+
+        | Reversed sentence: "ehT yks si" | "blue"           |
+        +----------------------------------+------------------+
+                        |
+                        v
+        +----------------------------------+------------------+
+        | Find next space at index npos   | "blue" (last word)|
+        | Reverse "blue" -> "eulb"        |                  |
+        +----------------------------------+------------------+
+                        |
+                        v
+        +----------------------------------+------------------+
+        | Final Reversed sentence: "ehT yks si eulb"       |
+        +----------------------------------+------------------+
+                        |
+                        v
+        +----------------------------------+------------------+
+        | Print "ehT yks si eulb"         |                  |
+        +----------------------------------+------------------+
+
 
 4. Simple Palindrome Checker
 
