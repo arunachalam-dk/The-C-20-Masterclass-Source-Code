@@ -19,6 +19,7 @@ target_sources(Rocket
         PUBLIC
         FILE_SET CXX_MODULES FILES
         utilities.ixx
+        utilities1.ixx
 )
 
 target_link_libraries(Rocket PRIVATE fmt::fmt sfml-graphics)
