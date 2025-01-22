@@ -2,177 +2,59 @@ module;
 
 #include <string_view>
 #include <fmt/format.h>
+#include <iostream>
 
 export module utilities; 
 
-export void print_msg(std::string_view msg) {
-	fmt::println("{}",msg);
+import overloading_1;
+import overloading_2;
+import overloading_4;
+
+export void overloading_1_demo(){
+    using namespace overloading_1;
+    print(42);          // Calls the int version
+    print(3.14);        // Calls the double version
+    print("Hello!");   // Calls the string version
 }
 
-//Overoading with different parameters
+
+export void overloading_2_demo(){
+    using namespace overloading_2;
+    int array[] = {1, 2, 3, 4, 5};
+    process(array, 5);  // Calls the array version
+    process(42);        // Calls the single value version
+}
+
 /*
-export int max(int a, int b)
-{
-  fmt::println("int overload called");
-  return (a > b) ? a : b;
-}
-
-export double max(double a, double b)
-{
-  fmt::println("double overload called");
-  return (a > b) ? a : b;
-}
-
-export double max(int a, double b)
-{
-  fmt::println("(int,double) overload called");
-  return (a > b) ? a : b;
-}
-
-export double max(double a, int b)
-{
-  fmt::println("(double,int) overload called");
-  return (a > b) ? a : b;
-}
-
-export double max(double a, int b, int c)
-{
-  fmt::println("(double,int,int) overload called");
-  return a;
-}
-
-export std::string_view max(std::string_view a, std::string_view b)
-{
-  fmt::println("(string_view,string_view) overload called");
-  return (a > b) ? a : b;
-}
+    . Overloading std::getline
+    . std::getline is overloaded in the C++ standard library to allow reading a whole line or reading up to a specific delimiter.
+    . These are examples I picked up for this lecture, but the exhaustive list of overloads should be checked in the standard library documentation.
 */
+export void overloading_3_demo(){
+  std::string line;
 
-//Overloading with pointer parameters
-/*
-export double max(double *numbers, size_t count)
-{
-  fmt::println("doubles overload called");
-  double maximum{ 0 };
+  // Read a whole line from standard input
+  fmt::print("Enter a line: ");
+  std::getline(std::cin, line);
+  fmt::println("You entered: {}", line);
 
-  for (size_t i{ 0 }; i < count; ++i) {
-    if (numbers[i] > maximum) maximum = numbers[i];
-  }
-  return maximum;
-}
-
-export int max(int *numbers, size_t count)
-{
-  fmt::println("ints overload called");
-
-  int maximum{ 0 };
-
-  for (size_t i{ 0 }; i < count; ++i) {
-    if (numbers[i] > maximum) maximum = numbers[i];
-  }
-  return maximum;
-}
-*/
-
-//Overloading with references
-// Ambiguous calls
-/*
-export void say_my_name(const std::string &name) { 
-	fmt::println("Your name is (ref): {}", name); 
-}
-
-export void say_my_name(std::string name) {
-	fmt::println("Your name is (non ref): {}", name); 
-}
-
-// Implicit conversions with references
-export double max(double a, double b)
-{
-  fmt::println("double max called");
-  return (a > b) ? a : b;
-}
-
-// int& max(int& a, int& b){
-export const int &max(const int &a, const int &b)
-{
-  fmt::println("int max called");
-  return (a > b) ? a : b;
-}
-*/
-
-
-//Overloading with const parameters
-/*
-export int max(const int a, const int b)
-{
-  fmt::println("const int max called");
-  return (a > b) ? a : b;
-}
-
-export int max(int a, int b)
-{
-  fmt::println("int max called");
-  return (a > b) ? a : b;
-}
-*/
-
-
-//Overloading with const pointer and pointer to const
-/*
-export int max(int *a, int *b)
-{
-  fmt::println("max with int* called");
-  return (*a > *b) ? *a : *b;
-}
-
-export int max(const int *a, const int *b)
-{
-  fmt::println("max with cont int* called");
-  return (*a > *b) ? *a : *b;
-}
-
-export int min(const int* a, const int* b){
-    return (*a < *b)? *a : *b;
+  // Read up to a specific delimiter (comma)
+  fmt::print("Enter values separated by commas: ");
+  std::getline(std::cin, line, ',');
+  fmt::println("First value: {}", line);  
 }
 
 
-export int min(const int *const a, const int *const b)
-{
-  fmt::println("&a : {}", fmt::ptr(&a));
-  fmt::println("&b : {}", fmt::ptr(&b));
-  return (*a < *b) ? *a : *b;
-}
-*/
+export void overloading_4_demo(){
+    using namespace overloading_4;
+    fmt::print("Rolling a 6-sided die: {}\n", roll());
+    fmt::print("Rolling a 20-sided die: {}\n", roll(20));
+    fmt::print("Rolling 3 6-sided dice: {}\n", roll(6, 3));
 
+    fmt::print("Area of a square with side 2.0: {}\n", area(2.0));
+    fmt::print("Area of a rectangle with length 2.0 and width 3.0: {}\n", area(2.0, 3.0));
+    fmt::print("Area of a circle with radius 1.0: {}\n", area(1.0, true));
 
-//Overloading with const references
-/*
-export int max(int &a, int &b)
-{
-  fmt::println("max with int& called");
-
-  // Can change a and b through the reference
-  // a = 200;// This change will be visible outside the function
-
-  return (a > b) ? a : b;
-}
-
-export int max(const int &a, const int &b)
-{
-  fmt::println("max with const int& called");
-
-  // Can NOT change a and b through the reference
-  // a = 200; // Will give a compiler error.
-  return (a > b) ? a : b;
-}
-*/
-
-
-//Overloading with default parameters
-export void print_age(int age = 18) {
-    fmt::println( "Your age is( int version)  : {}" , age );
-}
-
-export void print_age(long int age) {
-    fmt::println("Your age is (long int version) : {}", age); 
+    respond();
+    respond("What is the meaning of life?");
 }
