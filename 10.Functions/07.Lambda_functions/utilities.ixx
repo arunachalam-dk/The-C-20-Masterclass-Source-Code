@@ -102,9 +102,7 @@ export void declare_and_use_lambda_func(){
 }
 
 export void capture_lists(){
-
 	// Capture lists
-	/*
 	double a{10};
 	double b{20};
 
@@ -112,69 +110,71 @@ export void capture_lists(){
 		fmt::println( "a + b : " , a + b );
 	};
 	func();
-	*/
-
-	//Capturing by value
-	int c{42};
-
-	// Lambda capturing 'c' by value
-	auto func = [c]() {
-		fmt::println("Inner value: {} &inner: {}", c, fmt::ptr(&c));
-	};
-
-	for (size_t i = 0; i < 5; ++i) {
-		fmt::println("Outer value: {} &outer: {}", c, fmt::ptr(&c));
-		func();
-		++c;
-	}
-
-	// Capture by reference
-	/*
-	int c{42};
-	auto func = [&c]() { 
-		fmt::println("Inner value: {} &inner: {}", c, fmt::ptr(&c)); 
-	};
-
-	for (size_t i = 0; i < 5; ++i) {
-		fmt::println("Outer value: {} &outer: {}", c, fmt::ptr(&c));
-		func();
-		++c;
-	}
-	*/
-
-
 }
 
-export void capture_all_lists(){
-		
-	// Capture everything by value
-	/*
-	int c{42};
+export void capture_by_value_modification() {
+    int x = 10;
 
-	auto func = [=](){
-		fmt::println("Inner value: {}" , c );
-	};
+    // Lambda capturing 'x' by value
+    auto lambda = [x]() mutable {  // 'mutable' allows modifying the captured copy
+        x += 5;  // Modifies the captured copy, not the original
+        fmt::println("Inside lambda (modified copy): {}", x);
+    };
 
-	for(size_t i{} ; i < 5 ;++i){
-		fmt::println("Outer value: {}" , c );
-		func();
-		++c;
-	}
-	*/
+    fmt::println("Original value before lambda: {}", x);
+    lambda();
+    fmt::println("Original value after lambda: {}", x);  // Unchanged
+}
+
+export void capture_by_reference_modification() {
+    int x = 10;
+
+    // Lambda capturing 'x' by reference
+    auto lambda = [&x]() {
+        x += 5;  // Modifies the original variable
+        fmt::println("Inside lambda (modified original): {}", x);
+    };
+
+    fmt::println("Original value before lambda: {}", x);
+    lambda();
+    fmt::println("Original value after lambda: {}", x);  // Changed
+}
 
 
-	// Capturing all reference
-	int c{ 42 };
-	int d{ 5 };
+export void capture_all_by_value() {
+    int x = 10;
+    int y = 20;
 
-	auto func = [&]() {
-		fmt::println("Inner value: {}", c);
-		fmt::println("Inner value(d): {}", d);
-	};
+    // Lambda capturing all by value
+    auto lambda = [=]() mutable {
+        // Modify the captured values inside the lambda
+        int x_copy = x + 5;
+        int y_copy = y + 10;
 
-	for (size_t i{}; i < 5; ++i) {
-		fmt::println("Outer value: {}", c);
-		func();
-		++c;
-	}	
+        fmt::println("Inside lambda (x copy modified): {}", x_copy);
+        fmt::println("Inside lambda (y copy modified): {}", y_copy);
+    };
+
+    fmt::println("Original values before lambda: x = {}, y = {}", x, y);
+    lambda();
+    fmt::println("Original values after lambda: x = {}, y = {}", x, y);  // Unchanged
+}
+
+export void capture_all_by_reference() {
+    int x = 10;
+    int y = 20;
+
+    // Lambda capturing all by reference
+    auto lambda = [&]() {
+        // Directly modify the original variables
+        x += 5;
+        y += 10;
+
+        fmt::println("Inside lambda (x modified): {}", x);
+        fmt::println("Inside lambda (y modified): {}", y);
+    };
+
+    fmt::println("Original values before lambda: x = {}, y = {}", x, y);
+    lambda();
+    fmt::println("Original values after lambda: x = {}, y = {}", x, y);  // Changed
 }

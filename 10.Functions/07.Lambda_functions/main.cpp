@@ -42,7 +42,9 @@ int main() {
     //declare_and_use_lambda_func();
 
     //Capture lists
-    capture_lists();
+    //capture_lists();
+    //capture_by_value_modification();
+    capture_by_reference_modification();
 
     //Capture all lists
     //capture_all_lists();
