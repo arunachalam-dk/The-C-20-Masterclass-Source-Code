@@ -146,12 +146,12 @@ export void ct5_demo(){
 	
 
 	// Recursive lambda with explicit object parameters
-	auto fib = [](auto self, int n) -> int {
+	auto fib = [](this auto& self, int n){
 		if(n <= 1) return n;
-		return self(self, n - 1) + self(self, n - 2);
+		return self(n - 1) + self(n - 2);
 	};
 
-	fmt::println("Fibonacci(10): {}", fib(fib, 10));
+	fmt::println("Fibonacci(10): {}", fib(10));
 }
 
 export void ct6_demo(){

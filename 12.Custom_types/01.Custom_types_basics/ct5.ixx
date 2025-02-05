@@ -5,7 +5,7 @@
             . Clang: Yes
             . GCC: May be. Haven't checked.
 			
-	. Compiler explorer link: https://godbolt.org/z/1vdvonoG6
+	. Compiler explorer link: https://godbolt.org/z/617ab8ojP
 
     . Facts: 
         . The first parameter of the set_color is the explicit object parameter.
