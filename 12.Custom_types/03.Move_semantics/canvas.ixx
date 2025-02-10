@@ -9,6 +9,9 @@ export module canvas;
 export import pixel;
 
 namespace raw{
+	/*
+		. We are using the rule of 5 here. We define all of the special 5 functions.
+	*/
     export class Canvas {
     public:
         Canvas(std::size_t width, std::size_t height);
