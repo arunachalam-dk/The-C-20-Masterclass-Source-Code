@@ -16,7 +16,6 @@ find_package(SFML COMPONENTS system window graphics audio CONFIG REQUIRED)
 
 add_executable(Tetris
         main.cpp
-        Game.cpp
 )
 
 target_link_libraries(Tetris PRIVATE sfml-graphics )
