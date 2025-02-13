@@ -36,7 +36,7 @@ public:
         }
     }
 
-    std::span<const std::array<int, WIDTH>> getGrid() const { return grid; }
+    std::span<const std::array<int, WIDTH>> get_grid() const { return grid; }
 
 private:
     std::array<std::array<int, WIDTH>, HEIGHT> grid;
@@ -44,14 +44,14 @@ private:
 
 class BoardEntity {
 public:
-    explicit BoardEntity(const Board& board) : m_board(board) {}
+    explicit BoardEntity(const Board& board) : board_(board) {}
 
     void draw(sf::RenderWindow& window) const {
         sf::RectangleShape block(sf::Vector2f(Board::BLOCK_SIZE, Board::BLOCK_SIZE));
         block.setOutlineColor(sf::Color::White);
         block.setOutlineThickness(1.0f);
 
-        auto grid = m_board.getGrid();
+        auto grid = board_.get_grid();
         for (int y = 0; y < Board::HEIGHT; ++y) {
             for (int x = 0; x < Board::WIDTH; ++x) {
                 block.setPosition(x * Board::BLOCK_SIZE, y * Board::BLOCK_SIZE);
@@ -62,7 +62,7 @@ public:
     }
 
 private:
-    const Board& m_board;
+    const Board& board_;
 };
 
 void handleInput(sf::RenderWindow& window) {
