@@ -4,12 +4,12 @@
 
 class Game {
 public:
-  Game();
-  void run();
+    Game();
+    void run();
 
 private:
-  void handleKeyPress(sf::Keyboard::Key key);
-  void processEvents();
+    void handle_key_press(sf::Keyboard::Key key);
+    void process_events();
 
-  sf::RenderWindow m_window;
+    sf::RenderWindow window_;
 };
