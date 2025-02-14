@@ -45,13 +45,15 @@ export class Board{
         int pos_x = tetromino.get_pos_x();
         int pos_y = tetromino.get_pos_y();
 
+        //Looping through the 4x4 grid of the tetromino
         for (int y = 0; y < Tetromino::GRID_SIZE; ++y) {
             for (int x = 0; x < Tetromino::GRID_SIZE; ++x) {
                 if (shape[y][x]) {
+                    //If the spot is turned on in the tetromino, turn it on in the board
                     int board_x = pos_x + x;
                     int board_y = pos_y + y;
                     if (board_x >= 0 && board_x < WIDTH && board_y >= 0 && board_y < HEIGHT) {
-                        grid[board_y][board_x] = type;
+                        grid[board_y][board_x] = type; // The types are mapped to colors in the BoardEntity class draw method.
                     }
                 }
             }

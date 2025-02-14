@@ -71,7 +71,7 @@ private:
 
     Type current_type;
     int current_rotation;
-    int pos_x;
-    int pos_y;
+    int pos_x; // x position on the board with a size of (width = 10, height = 20) in our implementation
+    int pos_y; // y position on the board with a size of (width = 10, height = 20) in our implementation
     std::array<std::array<bool, GRID_SIZE>, GRID_SIZE> current_shape;
 };
