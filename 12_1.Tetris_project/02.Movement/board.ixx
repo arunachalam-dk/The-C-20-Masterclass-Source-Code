@@ -88,6 +88,7 @@ export class Board{
         }
     }
 
+    // returns true if the piece is out of bounds or collides with locked pieces
     bool is_collision(const Tetromino& tetromino) const {
         auto shape = tetromino.get_shape();
         int pos_x = tetromino.get_pos_x();
