@@ -26,97 +26,38 @@ export class Board{
 
     Board() {
         grid.fill({});
-        locked_grid.fill({});
     }
 
     void initialize(){
         // Set all cells to empty (0)
         grid.fill({});
-        locked_grid.fill({});
     }
 
     void clear_board() {
         grid.fill({});
-        locked_grid.fill({});
     }
 
     void update_tetromino(const Tetromino& tetromino) {
-        // Clear only moving pieces, keep locked ones
-        for (int y = 0; y < HEIGHT; ++y) {
-            for (int x = 0; x < WIDTH; ++x) {
-                if (!locked_grid[y][x]) {
-                    grid[y][x] = 0;
-                }
-            }
-        }
+        clear_board();  // Clear the board before updating
 
-        // Update with new tetromino position
         auto shape = tetromino.get_shape();
         int type = static_cast<int>(tetromino.get_type());
         int pos_x = tetromino.get_pos_x();
         int pos_y = tetromino.get_pos_y();
 
+        //Looping through the 4x4 grid of the tetromino
         for (int y = 0; y < Tetromino::GRID_SIZE; ++y) {
             for (int x = 0; x < Tetromino::GRID_SIZE; ++x) {
                 if (shape[y][x]) {
+                    //If the spot is turned on in the tetromino, turn it on in the board
                     int board_x = pos_x + x;
                     int board_y = pos_y + y;
                     if (board_x >= 0 && board_x < WIDTH && board_y >= 0 && board_y < HEIGHT) {
-                        grid[board_y][board_x] = type;
+                        grid[board_y][board_x] = type; // The types are mapped to colors in the BoardEntity class draw method.
                     }
                 }
             }
         }
-    }
-
-    void lock_current_piece(const Tetromino& tetromino) {
-        auto shape = tetromino.get_shape();
-        int type = static_cast<int>(tetromino.get_type());
-        int pos_x = tetromino.get_pos_x();
-        int pos_y = tetromino.get_pos_y();
-
-        for (int y = 0; y < Tetromino::GRID_SIZE; ++y) {
-            for (int x = 0; x < Tetromino::GRID_SIZE; ++x) {
-                if (shape[y][x]) {
-                    int board_x = pos_x + x;
-                    int board_y = pos_y + y;
-                    if (board_x >= 0 && board_x < WIDTH && board_y >= 0 && board_y < HEIGHT) {
-                        locked_grid[board_y][board_x] = true;
-                    }
-                }
-            }
-        }
-    }
-
-    // returns true if the piece is out of bounds or collides with locked pieces
-    bool is_collision(const Tetromino& tetromino) const {
-        auto shape = tetromino.get_shape();
-        int pos_x = tetromino.get_pos_x();
-        int pos_y = tetromino.get_pos_y();
-
-        for (int y = 0; y < Tetromino::GRID_SIZE; ++y) {
-            for (int x = 0; x < Tetromino::GRID_SIZE; ++x) {
-                if (shape[y][x]) {
-                    int board_x = pos_x + x;
-                    int board_y = pos_y + y;
-                    
-                    // Check boundaries
-                    if (board_x < 0 || board_x >= WIDTH || board_y >= HEIGHT) {
-                        return true;
-                    }
-                    
-                    // Check collision with locked pieces
-                    if (board_y >= 0 && locked_grid[board_y][board_x]) {
-                        return true;
-                    }
-                }
-            }
-        }
-        return false;
-    }
-
-    bool is_out_of_bounds(int x, int y) const {
-        return x < 0 || x >= WIDTH || y >= HEIGHT;
     }
 
     std::span<const std::array<int, WIDTH>> get_grid() const {
@@ -125,7 +66,6 @@ export class Board{
 
     private:
         std::array< std::array<int, WIDTH> , HEIGHT> grid; 
-        std::array<std::array<bool, WIDTH>, HEIGHT> locked_grid{};
 };
 
 
