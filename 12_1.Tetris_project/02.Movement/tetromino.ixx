@@ -10,8 +10,16 @@ public:
     enum Type { I = 1, O, T, S, Z, J, L };
     static constexpr int GRID_SIZE = 4;
 
-    Tetromino(Type type) : current_type(type), current_rotation(0), pos_x(3), pos_y(0) {
+    Tetromino(Type type) 
+        : current_type(type)
+        , current_rotation(0)
+        , pos_x(3)
+        , pos_y(0)
+        , last_pos_x(3)
+        , last_pos_y(0)
+        , last_rotation(0) {
         initialize_shape(type);
+        last_shape = current_shape;
     }
 
     void move_left() { --pos_x; }
@@ -28,6 +36,20 @@ public:
             }
         }
         current_rotation = (current_rotation + 1) % 4;
+    }
+
+    void undo_move() {
+        pos_x = last_pos_x;
+        pos_y = last_pos_y;
+        current_shape = last_shape;
+        current_rotation = last_rotation;
+    }
+
+    void backup_position() {
+        last_pos_x = pos_x;
+        last_pos_y = pos_y;
+        last_shape = current_shape;
+        last_rotation = current_rotation;
     }
 
     int get_pos_x() const { return pos_x; }
@@ -71,7 +93,11 @@ private:
 
     Type current_type;
     int current_rotation;
-    int pos_x; // x position on the board with a size of (width = 10, height = 20) in our implementation
-    int pos_y; // y position on the board with a size of (width = 10, height = 20) in our implementation
+    int pos_x;
+    int pos_y;
+    int last_pos_x;
+    int last_pos_y;
+    int last_rotation;
+    std::array<std::array<bool, GRID_SIZE>, GRID_SIZE> last_shape;
     std::array<std::array<bool, GRID_SIZE>, GRID_SIZE> current_shape;
 };
