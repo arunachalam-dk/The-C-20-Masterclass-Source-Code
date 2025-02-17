@@ -22,8 +22,10 @@
             │       └── Utils.ixx
 
 */
-import utilities;
+import game;
 
-int main(){
-    app();
+int main() {
+    Game game;
+    game.run();
+    return 0;
 }
