@@ -27,5 +27,6 @@ target_sources(${PROJECT_NAME}
         board.ixx
         tetromino.ixx 
         game.ixx
+        gamestate.ixx
 )
 target_link_libraries(${PROJECT_NAME} PRIVATE fmt::fmt sfml-graphics)
