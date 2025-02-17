@@ -125,6 +125,41 @@ export class Board{
         return grid;
     }
 
+    bool is_line_complete(int row) const {
+        for (int x = 0; x < WIDTH; ++x) {
+            if (!locked_grid[row][x]) return false;
+        }
+        return true;
+    }
+
+    void clear_line(int row) {
+        // Move all rows above down
+        for (int y = row; y > 0; --y) {
+            grid[y] = grid[y - 1];
+            locked_grid[y] = locked_grid[y - 1];
+        }
+        // Clear top row
+        grid[0].fill(0);
+        locked_grid[0].fill(false);
+    }
+
+    int clear_complete_lines() {
+        int lines_cleared = 0;
+        for (int y = HEIGHT - 1; y >= 0; --y) {
+            if (is_line_complete(y)) {
+                clear_line(y);
+                ++lines_cleared;
+                ++y; // Check the same row again as everything shifted down
+            }
+        }
+        return lines_cleared;
+    }
+
+    bool is_game_over(const Tetromino& tetromino) const {
+        // If a newly spawned piece immediately collides, game is over
+        return is_collision(tetromino);
+    }
+
     private:
         std::array< std::array<int, WIDTH> , HEIGHT> grid; 
         std::array<std::array<bool, WIDTH>, HEIGHT> locked_grid{};
