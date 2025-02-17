@@ -1,11 +1,4 @@
 /*
-   
-    . Extract some noisy code from the utilities module into some classes: 
-        . Game
-        . GameState
-        . BoardEntity
-
-    . Next: 
         . Restructure the project into something like this : 
             /Root folder
                 ├── CMakeLists.txt
