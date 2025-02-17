@@ -48,7 +48,7 @@ void draw_next_piece(sf::RenderWindow& window, const Tetromino& next_piece) {
 }
 
 export void app() {
-    sf::RenderWindow window(sf::VideoMode((Board::WIDTH + 6) * Board::BLOCK_SIZE, 
+    sf::RenderWindow window(sf::VideoMode((Board::WIDTH + 7) * Board::BLOCK_SIZE, 
                             Board::HEIGHT * Board::BLOCK_SIZE), 
                             "Tetris");
     window.setFramerateLimit(60);
