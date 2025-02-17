@@ -1,17 +1,29 @@
 /*
-   This project adds the following: 
-        . Line clearing 
-            . Done in the game loop in the falling logic: 
-                    // Clear lines and update score
-                    int lines = board.clear_complete_lines();
-                    score += lines * 100; // 100 points per line
-        . Score keeping
-        . Game over detection
-        . Visual feedback when game over and score
+   Restructure the project into something like this : 
+        /Root folder
+            ├── CMakeLists.txt
+            ├── assets/
+            │   ├── fonts/
+            │   │   └── arial.ttf
+            │   └── textures/
+            ├── src/
+            │   ├── CMakeLists.txt
+            │   ├── main.cpp
+            │   ├── game/
+            │   │   ├── Game.ixx
+            │   │   └── GameState.ixx
+            │   ├── board/
+            │   │   ├── Board.ixx
+            │   │   └── BoardEntity.ixx
+            │   ├── pieces/
+            │   │   ├── Tetromino.ixx
+            │   │   └── TetrominoFactory.ixx
+            │   └── utils/
+            │       └── Utils.ixx
+
 */
 import utilities;
 
 int main(){
     app();
-    
 }
