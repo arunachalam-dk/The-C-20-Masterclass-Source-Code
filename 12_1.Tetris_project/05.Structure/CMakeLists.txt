@@ -25,6 +25,7 @@ target_sources(${PROJECT_NAME}
         FILE_SET CXX_MODULES FILES
         utilities.ixx
         board.ixx
+        board_entity.ixx  # Add this line
         tetromino.ixx 
         game.ixx
         gamestate.ixx

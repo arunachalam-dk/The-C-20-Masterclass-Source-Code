@@ -6,16 +6,9 @@ import board;
 import tetromino;
 import utilities;
 import gamestate;
+import board_entity;  // Add this import
 
 export class Game {
-private:
-    sf::RenderWindow window;
-    BoardEntity entity;
-    GameState state;
-    sf::Font font;
-    sf::Clock clock;
-    sf::Clock movement_clock;
-    const float move_delay = 0.1f;
 
 public:
     Game() : window(sf::VideoMode((Board::WIDTH + 7) * Board::BLOCK_SIZE, 
@@ -84,4 +77,13 @@ private:
             movement_clock.restart();
         }
     }
+    
+private:
+    sf::RenderWindow window;
+    BoardEntity entity;
+    GameState state;
+    sf::Font font;
+    sf::Clock clock;
+    sf::Clock movement_clock;
+    const float move_delay = 0.1f;
 };
