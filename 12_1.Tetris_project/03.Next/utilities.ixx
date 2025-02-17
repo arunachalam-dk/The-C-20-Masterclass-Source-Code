@@ -14,15 +14,49 @@ Tetromino spawn_new_tetromino() {
     return Tetromino(static_cast<Tetromino::Type>(dis(gen)));
 }
 
+void draw_next_piece(sf::RenderWindow& window, const Tetromino& next_piece) {
+    // Draw preview box
+    sf::RectangleShape preview_box;
+    preview_box.setSize(sf::Vector2f(6 * Board::BLOCK_SIZE, 6 * Board::BLOCK_SIZE));
+    preview_box.setPosition((Board::WIDTH + 0.5f) * Board::BLOCK_SIZE, Board::BLOCK_SIZE);
+    preview_box.setFillColor(sf::Color::Black);
+    preview_box.setOutlineColor(sf::Color::White);
+    preview_box.setOutlineThickness(2.0f);
+    
+    window.draw(preview_box);
+    
+    float preview_x = (Board::WIDTH + 1.5f) * Board::BLOCK_SIZE;
+    float preview_y = 2 * Board::BLOCK_SIZE;
+    
+    sf::RectangleShape block(sf::Vector2f(Board::BLOCK_SIZE, Board::BLOCK_SIZE));
+    block.setOutlineColor(sf::Color::White);
+    block.setOutlineThickness(1.0f);
+    
+    auto next_shape = next_piece.get_shape();
+    int type = static_cast<int>(next_piece.get_type());
+    block.setFillColor(Board::BLOCK_COLORS[type]);
+    
+    for (int y = 0; y < 4; ++y) {
+        for (int x = 0; x < 4; ++x) {
+            if (next_shape[y][x]) {
+                block.setPosition(preview_x + x * Board::BLOCK_SIZE,
+                                preview_y + y * Board::BLOCK_SIZE);
+                window.draw(block);
+            }
+        }
+    }
+}
+
 export void app() {
-    sf::RenderWindow window(sf::VideoMode(Board::WIDTH * Board::BLOCK_SIZE, 
+    sf::RenderWindow window(sf::VideoMode((Board::WIDTH + 6) * Board::BLOCK_SIZE, 
                             Board::HEIGHT * Board::BLOCK_SIZE), 
                             "Tetris");
     window.setFramerateLimit(60);
     
     Board board;
     BoardEntity entity(board);
-    Tetromino current_piece(Tetromino::Type::T);
+    Tetromino current_piece(spawn_new_tetromino());
+    Tetromino next_piece(spawn_new_tetromino());
     bool piece_locked = false;
 
     sf::Clock movement_clock;
@@ -86,7 +120,8 @@ export void app() {
                 board.lock_current_piece(current_piece);
 
                 //Spawn a new piece
-                current_piece = spawn_new_tetromino();
+                current_piece = next_piece;
+                next_piece = spawn_new_tetromino();
                 std::cout << "Spawned new piece\n";  // Debug output
             }
             
@@ -97,6 +132,10 @@ export void app() {
         
         window.clear(sf::Color::Black);
         entity.draw(window);
+        
+        // Replace the next piece preview code with a single function call
+        draw_next_piece(window, next_piece);
+        
         window.display();
     }
 }
