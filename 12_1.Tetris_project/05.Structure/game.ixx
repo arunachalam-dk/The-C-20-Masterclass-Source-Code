@@ -1,12 +1,13 @@
 module;
 #include <SFML/Graphics.hpp>
+#include <iostream>
 
 export module game;
 import board;
 import tetromino;
 import utilities;
 import gamestate;
-import board_entity;  // Add this import
+import board_entity;
 
 export class Game {
 
@@ -16,7 +17,7 @@ public:
              entity(state.get_board()) {
         window.setFramerateLimit(60);
         if (!font.loadFromFile("arial.ttf")) {
-            throw std::runtime_error("Error loading font");
+            std::cout << "Failed to load font\n";
         }
     }
 
