@@ -45,6 +45,7 @@ export void app() {
         // too frequently when a player holds down a movement key. Without it, pressing 
         // and holding a key would move the piece too quickly, making the game unplayable.
         if (movement_clock.getElapsedTime().asSeconds() >= move_delay) {
+            // Save the current state in case a collision occurs.
             current_piece.backup_position();
             bool moved = false;
 

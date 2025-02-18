@@ -45,6 +45,7 @@ public:
         current_rotation = last_rotation;
     }
 
+    //Store the current state in case something goes wrong
     void backup_position() {
         last_pos_x = pos_x;
         last_pos_y = pos_y;
