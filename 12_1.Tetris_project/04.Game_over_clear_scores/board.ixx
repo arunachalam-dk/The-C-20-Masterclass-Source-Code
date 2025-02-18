@@ -143,6 +143,16 @@ export class Board{
         locked_grid[0].fill(false);
     }
 
+
+    /*
+        1. The loop starts from the bottom row (HEIGHT - 1) and moves upwards (--y).
+        2. When a complete line is found (is_line_complete(y)), it is cleared (clear_line(y)).
+        3. The lines_cleared counter is incremented.
+        4. The ++y statement increments y to recheck the same row index in the next iteration 
+            because the rows above have shifted down.
+        5. The loop control (--y) will then decrement y in the next iteration, effectively 
+            keeping y at the same value it was before the ++y statement.
+    */
     int clear_complete_lines() {
         int lines_cleared = 0;
         for (int y = HEIGHT - 1; y >= 0; --y) {
