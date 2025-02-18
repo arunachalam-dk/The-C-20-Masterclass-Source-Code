@@ -17,7 +17,6 @@
                 │   │   └── BoardEntity.ixx
                 │   ├── pieces/
                 │   │   ├── Tetromino.ixx
-                │   │   └── TetrominoFactory.ixx
                 │   └── utils/
                 │       └── Utils.ixx
 
