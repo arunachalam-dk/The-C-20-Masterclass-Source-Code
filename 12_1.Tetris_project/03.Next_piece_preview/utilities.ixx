@@ -25,6 +25,7 @@ void draw_next_piece(sf::RenderWindow& window, const Tetromino& next_piece) {
     
     window.draw(preview_box);
     
+    //The top-left corner from which we start drawing the preview piece
     float preview_x = (Board::WIDTH + 1.5f) * Board::BLOCK_SIZE;
     float preview_y = 2 * Board::BLOCK_SIZE;
     
